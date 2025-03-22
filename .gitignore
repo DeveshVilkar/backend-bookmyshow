@@ -1,0 +1,11 @@
+# General ignores
+*.log
+*.env
+*.DS_Store
+*.bak
+*.swp
+
+# Node.js (if applicable)
+node_modules/
+npm-debug.log
+yarn-error.log
