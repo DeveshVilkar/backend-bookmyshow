@@ -80,12 +80,17 @@ class MovieModel {
   }
 
   static updateMovie(id, movieData) {
-    const fields = Object.keys(movieData)
+    const updatedData = { ...movieData };
+    if (updatedData.languages) updatedData.languages = JSON.stringify(updatedData.languages);
+    if (updatedData.available_formats) updatedData.available_formats = JSON.stringify(updatedData.available_formats);
+    if (updatedData.genre) updatedData.genre = JSON.stringify(updatedData.genre);
+  
+    const fields = Object.keys(updatedData)
       .map((key) => `${key} = ?`)
       .join(", ");
-    const values = Object.values(movieData);
+    const values = Object.values(updatedData);
     values.push(id);
-
+  
     return new Promise((resolve, reject) => {
       db.run(`UPDATE movies SET ${fields} WHERE id = ?`, values, (err) => {
         if (err) reject(err);
