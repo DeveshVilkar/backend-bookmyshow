@@ -6,16 +6,28 @@ class MovieModel {
     return new Promise((resolve, reject) => {
       db.all("SELECT * FROM movies", [], (err, rows) => {
         if (err) reject(err);
-        resolve(rows);
+        const movies = rows.map((movie) => ({
+          ...movie,
+          languages: JSON.parse(movie.languages || "[]"),
+          available_formats: JSON.parse(movie.available_formats || "[]"),
+          genre: JSON.parse(movie.genre || "[]"),
+          content_rating: JSON.parse(movie.content_rating || "[]"),
+        }));
+        resolve(movies);
       });
     });
   }
 
   static getMovieById(id) {
     return new Promise((resolve, reject) => {
-      db.get("SELECT * FROM movies WHERE id = ?", [id], (err, row) => {
+      db.get("SELECT * FROM movies WHERE id = ?", [id], (err, movie) => {
         if (err) reject(err);
-        resolve(row);
+        if (!movie) return resolve(null);
+        movie.languages = JSON.parse(movie.languages || "[]");
+        movie.available_formats = JSON.parse(movie.available_formats || "[]");
+        movie.genre = JSON.parse(movie.genre || "[]");
+        movie.content_rating = JSON.parse(movie.content_rating || "[]");
+        resolve(movie);
       });
     });
   }

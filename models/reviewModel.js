@@ -41,7 +41,11 @@ class ReviewModel {
         [movieId],
         (err, rows) => {
           if (err) reject(err);
-          resolve(rows);
+          const reviews = rows.map((review) => ({
+            ...review,
+            hashtags: JSON.parse(review.hashtags || "[]"),
+          }));
+          resolve(reviews);
         }
       );
     });
