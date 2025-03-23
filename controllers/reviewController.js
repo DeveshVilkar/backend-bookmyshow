@@ -41,9 +41,10 @@ class ReviewController {
         id: review.id,
         user_id: review.user_id,
         rating: review.rating,
-        hashtags: JSON.parse(review.hashtags).filter((tag) =>
-          VALID_HASHTAGS.includes(tag)
-        ),
+        // hashtags: JSON.parse(review.hashtags).filter((tag) =>
+        //   VALID_HASHTAGS.includes(tag)
+        // ),
+        hashtags: review.hashtags.filter((tag) => VALID_HASHTAGS.includes(tag)),
         review_text: review.review_text,
         posted_date: review.posted_date,
         likes: review.likes,
