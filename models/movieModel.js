@@ -11,7 +11,7 @@ class MovieModel {
           languages: JSON.parse(movie.languages || "[]"),
           available_formats: JSON.parse(movie.available_formats || "[]"),
           genre: JSON.parse(movie.genre || "[]"),
-          content_rating: JSON.parse(movie.content_rating || "[]"),
+        //   content_rating: JSON.parse(movie.content_rating || "[]"),
         }));
         resolve(movies);
       });
